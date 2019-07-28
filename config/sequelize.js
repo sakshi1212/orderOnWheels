@@ -3,14 +3,16 @@ const fs = require('fs');
 const Sequelize = require('sequelize');
 const memoize = require('lodash/memoize');
 
+const { mysql } = require('../config/environment');
+
 const { Op } = Sequelize;
 const initSequelize = () =>
   new Sequelize(
-    'orderOnWheelsDev',
-    'root',
-    '123123123',
+    mysql.name,
+    mysql.username,
+    mysql.password,
     {
-      host: '127.0.0.1',
+      host: mysql.host,
       dialect: 'mysql',
       logging: false, 
       pool: {
@@ -81,12 +83,8 @@ const associateModels = (models) => {
 module.exports = memoize(() => {
   console.log('Start sequelize sync...');
   const sequelize = initSequelize();
-
-  // Load all models
-  console.log('Loading sequelize models...');
+  console.log('Loading and associating sequelize models...');
   const models = loadModels(sequelize, path.join(__dirname, '../models'));
-
-  // Associate models
   associateModels(models);
   console.log('Loaded sequelize models successfully!');
 

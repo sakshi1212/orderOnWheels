@@ -42,7 +42,7 @@ class Order extends Sequelize.Model {
       },
       {
         sequelize,
-        modelName: 'events',
+        modelName: 'orders',
         paranoid: true,
         scopes: {
           unassigned: {
