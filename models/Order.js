@@ -64,5 +64,5 @@ class Order extends Sequelize.Model {
   }
 }
 
-module.exports = Event;
+module.exports = Order;
 
