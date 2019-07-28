@@ -11,7 +11,6 @@ class Order extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-
         startLatitude: {
           type: DataTypes.STRING,
           allowNull: false,
@@ -43,7 +42,6 @@ class Order extends Sequelize.Model {
       {
         sequelize,
         modelName: 'orders',
-        paranoid: true,
         scopes: {
           unassigned: {
             where: {
