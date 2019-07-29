@@ -37,6 +37,12 @@ class Order extends Sequelize.Model {
           ),
           allowNull: false,
           defaultValue: 'UNASSIGNED',
+          validate: {
+            isIn: {
+              args: [['UNASSIGNED', 'TAKEN']],
+              msg: "Status Must be UNASSIGNED or TAKEN",
+            }
+          }
         },
       },
       {

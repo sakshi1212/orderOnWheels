@@ -1,31 +1,46 @@
 const asyncMW = require('../../middleware/async');
+const { formatCoordinates, getGoogleMapsDistance } = require('../../service/googleMapsApi');
+const { getPagination } = require('../../utils/sequelize/query');
+const { validateCoordinate, validateLimit, validatePage } = require('../../utils/validations');
 
 exports.index = asyncMW(async (req, res) => {
-  console.log('inside orders')
-  return res.status(200).send({
-    data: 'okay',
+  const { page, limit } = req.query;
+
+  await validatePage(page);
+  await validateLimit(limit);
+
+  const orders = await DB.Order.findAll({ 
+    attributes: ['id', 'distance', 'status'],
+    ...getPagination(page, limit),
   });
+
+  return res.status(200).send(orders);
 });
 
 exports.create = asyncMW(async (req, res) => {
   const { origin, destination } = req.body;
+  await validateCoordinate(origin);
+  await validateCoordinate(destination);
   const [startLatitude, startLongtitude] = origin;
   const [destLatitude, destLongtitude] = destination;
-  // TODO: validations
-  // TODO: errors
-  // TODO: map api to calculate distance
+  const formattedStartCoordinates = formatCoordinates(startLatitude, startLongtitude);
+  const formattedEndCoordinates = formatCoordinates(destLatitude, destLongtitude);
+  const computedDistance = await getGoogleMapsDistance(formattedStartCoordinates, formattedEndCoordinates);
+  if (!computedDistance) {
+    throw new HttpError(404, 'Unable to calculate Distance');
+  }
+  try {
   const { id, distance, status } = await DB.Order.create({
     startLatitude,
     startLongtitude,
     destLatitude,
     destLongtitude,
-    distance: '6586788',
+    distance: computedDistance,
     status: 'UNASSIGNED',
   });
-  try {
     return res.status(200).send({ id, distance, status });
   } catch (err) {
-    throw err;
+    throw new HttpError(500, err.message);
   }
 });
 
@@ -39,9 +54,10 @@ exports.update = asyncMW(async (req, res) => {
       },
       rejectOnEmpty: new Error(400, `Order with id ${id} not found`),
     });
-  // TODO validate status
-  // TODO handle race condition
-  // TODO error message
+  if(order.status === 'TAKEN') {
+    throw new HttpError(400, 'Order is already taken');
+  }
+  // TODO: race condition check -> transaction and lock
   try {
     const updatedOrder = await order.update({
       status,
@@ -50,11 +66,6 @@ exports.update = asyncMW(async (req, res) => {
       status: 'SUCCESS',
     });
   } catch (err) {
-    throw err;
+    throw new HttpError(500, err.message);
   }
 });
-
-
-
-// test cases 
-// docker !!!
