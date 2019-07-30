@@ -4,8 +4,9 @@ const { getPagination } = require('../../utils/sequelize/query');
 const { validateCoordinate, validateLimit, validatePage } = require('../../utils/validations');
 
 exports.index = asyncMW(async (req, res) => {
+  console.log('===== inside index');
   const { page, limit } = req.query;
-
+  console.log(page, limit);
   await validatePage(page);
   await validateLimit(limit);
 
@@ -13,7 +14,7 @@ exports.index = asyncMW(async (req, res) => {
     attributes: ['id', 'distance', 'status'],
     ...getPagination(page, limit),
   });
-
+  console.log(orders);
   return res.status(200).send(orders);
 });
 
