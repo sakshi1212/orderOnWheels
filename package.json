@@ -4,7 +4,9 @@
   "description": "Project to create, take and list orders",
   "main": "server.js",
   "scripts": {
-    "start": "./node_modules/nodemon/bin/nodemon.js server.js",
+    "start-dev": "./node_modules/nodemon/bin/nodemon.js server.js",
+    "start": "node server.js",
+    "start-prod": "NODE_ENV=production node server.js",
     "sequelize-skeleton": "./node_modules/sequelize-cli/lib/sequelize init",
     "init-db": "cd DIR_WHERE_MYSQL_BIN_IS && echo 'DROP DATABASE IF EXISTS api_node_demo; CREATE DATABASE api_node_demo CHARACTER SET utf8 COLLATE utf8_general_ci' | ./mysql -u root && cd -",
     "test": "jest --detectOpenHandles",
@@ -19,7 +21,8 @@
     "google-distance-matrix": "^1.1.1",
     "lodash": "^4.17.15",
     "mysql2": "^1.6.5",
-    "sequelize": "^5.11.0"
+    "sequelize": "^5.11.0",
+    "sequelize-cli": "^5.5.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
