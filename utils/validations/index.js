@@ -3,7 +3,7 @@ const isInteger = require('lodash/isInteger');
 const isNull = require('lodash/isNull');
 
 const validateCoordinateLength = (coordinateArr) => {
-  if (isNull(coordinateArr)) {
+  if (isNull(coordinateArr) || !coordinateArr) {
     throw new HttpError(400, 'Coordinates missing');
   } else if (coordinateArr.length != 2) {
     throw new HttpError(400, 'Coordinate has to be an array of exactly two strings');
