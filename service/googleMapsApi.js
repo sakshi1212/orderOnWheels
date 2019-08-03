@@ -1,4 +1,4 @@
-const key = 'AIzaSyAwRmbZz6iFdVq1aomfeZrf0lEwSwoITXU';
+const { googleMapsApiKey: key } = require('../config/environment');
 const get = require('lodash/get');
 
 const distance = require('google-distance-matrix');

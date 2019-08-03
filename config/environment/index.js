@@ -22,6 +22,7 @@ let defaultConfig = {
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
   },
+  googleMapsApiKey: process.env.GOOGLE_MAPS_KEY,
 };
 
 // merge defaultconfig with environment specific config

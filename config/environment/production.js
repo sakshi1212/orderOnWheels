@@ -9,4 +9,5 @@ module.exports = {
     username: "root",
     password: "123123123",
   },
+  googleMapsApiKey: "AIzaSyAwRmbZz6iFdVq1aomfeZrf0lEwSwoITXU",
 };
