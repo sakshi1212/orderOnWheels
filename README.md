@@ -1,9 +1,5 @@
 # orderOnWheels
 
-**Badges** 
-
-Optional badges such as npm version, test and build coverage, and so on.
-
 **Summary** 
 
 App that creates, lists, and books orders for a van
