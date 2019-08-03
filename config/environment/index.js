@@ -30,6 +30,6 @@ defaultConfig = _.merge(
   require(`${__dirname}/${defaultConfig.env}.js`) || {} 
 );
 
-// console.log(defaultConfig);
+console.log(defaultConfig);
 
 module.exports = defaultConfig;

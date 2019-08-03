@@ -16,8 +16,8 @@
   "production": {
     "username": "root",
     "password": null,
-    "database": "orderOnWheelsProduction",
-    "host": "127.0.0.1",
+    "database": "orderOnWheels",
+    "host": "192.168.86.207",
     "dialect": "mysql"
   }
 }
