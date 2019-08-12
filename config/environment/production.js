@@ -5,7 +5,7 @@ module.exports = {
   port: '8080',
   mysql: {
     name: "orderOnWheels",
-    host: "192.168.86.207",
+    host: "orderonwheels_db",
     username: "root",
     password: "123123123",
   },

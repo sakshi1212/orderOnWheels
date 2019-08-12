@@ -7,11 +7,15 @@ exports.index = asyncMW(async (req, res) => {
   const { page, limit } = req.query;
   await validatePage(page);
   await validateLimit(limit);
-  const orders = await DB.Order.findAll({ 
-    attributes: ['id', 'distance', 'status'],
-    ...getPagination(page, limit),
-  });
-  return res.status(200).send(orders);
+  try {
+    const orders = await DB.Order.findAll({ 
+      attributes: ['id', 'distance', 'status'],
+      ...getPagination(page, limit),
+    });
+    return res.status(200).send(orders);
+  } catch (err) {
+    throw new HttpError(500, err.message);
+  }
 });
 
 exports.create = asyncMW(async (req, res) => {

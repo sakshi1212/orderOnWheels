@@ -15,6 +15,7 @@ services:
     depends_on:
       - db
   db:
+    container_name: orderonwheels_db
     image: mysql/mysql-server:8.0
     ports:
       - "3306:3306"
