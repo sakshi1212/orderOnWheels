@@ -46,7 +46,8 @@ To run in productions, use
 4. on a seperate terminal window 
     run `docker exec -it orderonwheels_db mysql -uroot -p123123123` to access mysql within the container
     Use the following to grant access:
-    ```mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123123123';
+    ```
+       mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123123123';
        mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123123123';
        mysql> exit
     ```
