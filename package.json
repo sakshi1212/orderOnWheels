@@ -19,7 +19,7 @@
     "google-distance-matrix": "^1.1.1",
     "lodash": "^4.17.15",
     "mysql2": "^1.6.5",
-    "sequelize": "^5.11.0",
+    "sequelize": "^5.15.1",
     "sequelize-cli": "^5.5.0"
   },
   "devDependencies": {
